@@ -1,0 +1,19 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        string [] Result = {"Sunny","Sumit"};
+      foreach(var e in Result){   
+          char [] res = e.ToCharArray();
+            Array.Reverse(res);
+       Console.WriteLine("Reversed: " + new string(res));
+            Console.WriteLine("Characters: " + string.Join(",", res));
+           
+        }
+       
+    }
+}
