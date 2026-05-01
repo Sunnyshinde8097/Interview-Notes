@@ -1,0 +1,86 @@
+CREATE PROCEDURE SP_CrudOperation
+    @Action NVARCHAR(50)=null,
+    @EmployeeID INT = 0,
+    @FirstName NVARCHAR(50) = NULL,
+    @LastName NVARCHAR(50) = NULL,
+    @Mobile NVARCHAR(20) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @Action NOT IN ('Insert','Select','Update','Delete')
+    BEGIN
+        RAISERROR('InValid Action',16,1);
+        Return;
+    END;
+    -- INSERT
+    IF @Action = 'Insert'
+    BEGIN
+        IF (@FirstName IS NULL OR @LastName IS NULL OR @Mobile IS NULL)
+        BEGIN
+            RAISERROR('Please provide all the details',16,1);
+            RETURN;
+        END
+        ELSE IF EXISTS (SELECT 1 
+                        FROM Employee 
+                        WHERE FirstName = @FirstName 
+                          AND LastName = @LastName 
+                          AND PhoneNumber = @Mobile)
+        BEGIN
+            RAISERROR('Employee record already exists',16,1);
+            RETURN;
+        END
+        ELSE
+        BEGIN
+            INSERT INTO Employee (FirstName, LastName, PhoneNumber)
+            VALUES (@FirstName, @LastName, @Mobile);
+        END
+    END
+    ELSE IF @Action = 'Select'
+    BEGIN
+        IF @EmployeeID = 0
+        BEGIN
+            RAISERROR('Please provide a valid EmployeeID',16,1);
+            RETURN;
+        END
+        ELSE IF NOT EXISTS(SELECT 1 FROM EMPLOYEE Where EmployeeID = @EmployeeID)
+
+         BEGIN
+            RAISERROR('Employee ID is Not Exist',16,1);
+            RETURN;
+         END
+        ELSE
+        BEGIN
+            SELECT * FROM Employee WHERE EmployeeID = @EmployeeID;
+        END
+    END
+    ELSE IF @Action = 'Update'
+    BEGIN
+        IF @EmployeeID = 0
+        BEGIN
+            RAISERROR('Please provide a valid EmployeeID for update',16,1);
+            RETURN;
+        END
+        ELSE
+        BEGIN
+            UPDATE Employee
+            SET FirstName   = ISNULL(@FirstName, FirstName),
+                LastName    = ISNULL(@LastName, LastName),
+                PhoneNumber = ISNULL(@Mobile, PhoneNumber)
+            WHERE EmployeeID = @EmployeeID;
+        END
+    END
+    ELSE IF @Action = 'Delete'
+    BEGIN
+        IF @EmployeeID = 0
+        BEGIN
+            RAISERROR('Please provide a valid EmployeeID for delete',16,1);
+            RETURN;
+        END
+        ELSE
+        BEGIN
+            DELETE FROM Employee WHERE EmployeeID = @EmployeeID;
+        END
+    END
+END;
+
