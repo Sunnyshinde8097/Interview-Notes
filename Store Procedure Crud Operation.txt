@@ -13,7 +13,7 @@ BEGIN
         RAISERROR('InValid Action',16,1);
         Return;
     END;
-    -- INSERT
+
     IF @Action = 'Insert'
     BEGIN
         IF (@FirstName IS NULL OR @LastName IS NULL OR @Mobile IS NULL)
@@ -21,19 +21,14 @@ BEGIN
             RAISERROR('Please provide all the details',16,1);
             RETURN;
         END
-        ELSE IF EXISTS (SELECT 1 
-                        FROM Employee 
-                        WHERE FirstName = @FirstName 
-                          AND LastName = @LastName 
-                          AND PhoneNumber = @Mobile)
+        ELSE IF EXISTS (SELECT 1 FROM Employee WHERE FirstName = @FirstName AND LastName = @LastName AND PhoneNumber = @Mobile)
         BEGIN
             RAISERROR('Employee record already exists',16,1);
             RETURN;
         END
         ELSE
         BEGIN
-            INSERT INTO Employee (FirstName, LastName, PhoneNumber)
-            VALUES (@FirstName, @LastName, @Mobile);
+            INSERT INTO Employee (FirstName, LastName, PhoneNumber) VALUES (@FirstName, @LastName, @Mobile);
         END
     END
     ELSE IF @Action = 'Select'
@@ -63,16 +58,14 @@ BEGIN
         END
         ELSE
         BEGIN
-            UPDATE Employee
-            SET FirstName   = ISNULL(@FirstName, FirstName),
-                LastName    = ISNULL(@LastName, LastName),
-                PhoneNumber = ISNULL(@Mobile, PhoneNumber)
-            WHERE EmployeeID = @EmployeeID;
+            UPDATE Employee SET FirstName   = ISNULL(@FirstName, FirstName),LastName    = ISNULL(@LastName, LastName),
+                PhoneNumber = ISNULL(@Mobile, PhoneNumber) WHERE EmployeeID = @EmployeeID;
         END
     END
     ELSE IF @Action = 'Delete'
     BEGIN
         IF @EmployeeID = 0
+
         BEGIN
             RAISERROR('Please provide a valid EmployeeID for delete',16,1);
             RETURN;
