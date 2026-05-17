@@ -1,0 +1,53 @@
+TypeScript Interview Question and Answer**
+
+1.   What is Typescript ?
+Ans- TypeScript is a superset of JavaScript developed by Microsoft that 
+     adds static typing and advanced features. It helps developers 
+	 catch errors at compile time, improves tooling support, and makes large 
+	 applications easier to maintain. 
+     TypeScript code is transpiled into plain JavaScript, so it runs anywhere JavaScript runs.
+	 
+2.   What is Difference Between Typescript and JavaScript?
+Ans- JavaScript is a dynamic, interpreted programming language used
+     for web development, while TypeScript is a superset of JavaScript developed 
+     by Microsoft that adds static typing, compile-time error checking, and 
+	 advanced features. TypeScript code must be transpiled into JavaScript before 
+	 execution, but it helps developers build large, maintainable applications more reliably.
+	 
+3.	 What are the benefits of TypeScript 
+Ans- TypeScript’s main benefits are its ability to catch errors early through static
+     typing, improve code maintainability, and enhance developer productivity with 
+	 powerful tooling. These advantages make it especially valuable in interviews,
+	 as they demonstrate your focus on writing reliable, scalable, and team-friendly code. 
+	 
+4.   What are Type Interface in typescript ?
+Ans -Type inference in TypeScript means the compiler automatically determines the type of a variable, 
+     parameter, or return value without you explicitly declaring it. This makes code cleaner while 
+	 still ensuring type safety	
+
+5.  Difference between var, let, and const.
+Ans- Var - Scope: Function - scoped or globally scoped.
+           Redeclaration - Allowed within the same scope.
+           Reassignment - Allowed. 
+     let - Scope: Block-scoped (inside {} blocks).
+           Redeclaration: Not allowed in the same block.
+           Reassignment: Allowed.
+           Hoisting: Hoisted but not initialized (Temporal Dead Zone until declared).
+    Const- Scope: Block-scoped.
+           Redeclaration: Not allowed.
+           Reassignment: Not allowed (immutable binding).
+           Hoisting: Same as let (Temporal Dead Zone).
+
+6.  Difference between interface and type.
+
+Ans  ----------------------------------------------------------------------------------------------- 
+     |      Feature    | interface                     | Type                                      |   
+     -----------------------------------------------------------------------------------------------
+1    |    Scope        |Object shapes contracts        | Objects, unions, intersections, primitives|                     | 
+2    | Declaration     |Supported                      | Not supported                             |
+	 |    Merging      |                               |                                           |
+3	 |Extensibility    |extends keyword                | Intersection (&)                          |
+4	 |   Use Case      |Public APIs,evolving structures| Complex type compositions                 |                         |  
+5	 | Example         |interface User                 |   type User =                             |            |
+	 |                 | { id: number; name: string; } | { id: number; name: string; }             |                                           |
+     _----------------------------------------------------------------------------------------------
